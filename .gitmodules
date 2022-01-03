@@ -1,0 +1,12 @@
+[submodule "lorize3/libraries/crkbd"]
+	path = lorize3/libraries/crkbd
+	url = https://github.com/foostan/crkbd
+[submodule "lorize3/libraries/keyswitches.pretty"]
+	path = lorize3/libraries/keyswitches.pretty
+	url = https://github.com/daprice/keyswitches.pretty
+[submodule "lorize3/libraries/Keebio-Parts.pretty"]
+	path = lorize3/libraries/Keebio-Parts.pretty
+	url = https://github.com/keebio/Keebio-Parts.pretty
+[submodule "lorize3/libraries/keebio-components"]
+	path = lorize3/libraries/keebio-components
+	url = https://github.com/keebio/keebio-components

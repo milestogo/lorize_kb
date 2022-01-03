@@ -1,0 +1,8 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP DIODE-PTH
+D Diode These are standard reverse protection diodes and small signal diodes. <b>SparkFun Products:</b><ul><li><a href= https://www.sparkfun.com/products/11177 >SparkFun SparkPunk Sound Kit</a></li><li><a href= https://www.sparkfun.com/products/13231 >SparkFun ESP8266 Thing</a></li></ul>
+K PROD_ID:DIO-09176
+$ENDCMP
+#
+#End Doc Library

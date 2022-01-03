@@ -1,0 +1,9 @@
+(fp_lib_table
+  (lib (name KiCAD)(type KiCad)(uri ${KIPRJMOD}/libraries/bpnode-bb/KiCAD)(options "")(descr ""))
+  (lib (name Keebio-Parts)(type KiCad)(uri ${KIPRJMOD}/libraries/Keebio-Parts.pretty)(options "")(descr ""))
+  (lib (name proton_c)(type KiCad)(uri ${KIPRJMOD}/libraries/qmk_hardware/kicad/proton_c)(options "")(descr ""))
+  (lib (name keyswitches)(type KiCad)(uri ${KIPRJMOD}/libraries/keyswitches.pretty)(options "")(descr ""))
+  (lib (name SparkFun-LED)(type KiCad)(uri ${KIPRJMOD}/SparkFun-Kicad-Libraries/SparkFun-LED.pretty)(options "")(descr ""))
+  (lib (name lorize3)(type KiCad)(uri ${KIPRJMOD}/lorize3.pretty)(options "")(descr ""))
+  (lib (name Button_Switch_THT)(type KiCad)(uri ${KISYSMOD}/Button_Switch_THT.pretty)(options "")(descr ""))
+)

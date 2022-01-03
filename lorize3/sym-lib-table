@@ -1,0 +1,7 @@
+(sym_lib_table
+  (lib (name keebio)(type Legacy)(uri ${KIPRJMOD}/libraries/keebio-components/keebio.lib)(options "")(descr ""))
+  (lib (name Lorize3)(type Legacy)(uri ${KIPRJMOD}/libraries/Lorize3.lib)(options "")(descr ""))
+  (lib (name corne-chocolate-cache)(type Legacy)(uri ${KIPRJMOD}/libraries/crkbd/corne-chocolate/pcb/corne-chocolate-cache.lib)(options "")(descr ""))
+  (lib (name SparkFun-IC-Special-Function)(type Legacy)(uri ${KIPRJMODn}/SparkFun-KiCad-Libraries/Libraries/SparkFun-IC-Special-Function.lib)(options "")(descr ""))
+  (lib (name Switch)(type Legacy)(uri ${KICAD_SYMBOL_DIR}/Switch.lib)(options "")(descr ""))
+)

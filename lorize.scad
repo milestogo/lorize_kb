@@ -53,6 +53,26 @@ palm_mid = 4;
 palm_rest = 5;
 
 
+// lookup table used for the debugkey function to map col, row to a footprint name in kicad. 
+switch_layout = [ // layout for switches & diodes
+[ "72",   "5", "11","17", "23", "29", "35", "41", "47", "53", "59", "65", "71","73"], // top row, row4
+[ "",   "4", "10","16", "22", "28", "34", "40", "46", "52", "58", "64", "70"],
+[ "",   "3", "9", "15", "21", "27", "33", "39", "45", "51", "57", "63", "69"],
+[ "",   "2", "8", "14", "20", "26", "32", "38", "44", "50", "56", "62", "68"], // row 1
+[ "", "1", "7", "13", "19", "25", "31", "37", "43", "49", "55", "61", "67"], // row 0
+];
+
+led_layout = [ // layout for LEDs, which is based on contiguous verticals
+[ "",   "84", "93","94", "103", "104", "113", "114", "123", "134", "143", "144", "153"], // top row, row4
+[ "",   "85", "92","95", "102", "105", "112", "115", "122", "135", "142", "145", "152"],
+[ "",   "86", "91", "96", "101", "106", "111", "116", "121", "136", "141", "146", "151"],
+[ "",   "87", "90", "97", "100", "107", "110", "117", "120", "137", "140", "147", "150"], // row 1
+[ "",   "88", "89", "98", "99", "108", "109", "118", "119", "138", "139", "148", "149"], // 
+];
+
+
+
+
 //// Functions
 
 
@@ -125,12 +145,11 @@ module doright(angles, vfudge, hfudge, rowlow, rowhi, separation, is_mirror) {
   if ((board == maxreform) || (board == reform)) {
 
     for (x = 6) { // weird pinky keys
-
       if (board == maxreform || (board == reform)) {
         for (y = [rowlow[x]]) {
-          debugkey((x - 2) * colstep, 0, splita, hfudge[x]-0.5,
-                   vfudge[x] + (y - .60) * rowstep, angles[x], separation, 0, 90,
-                   is_mirror, x,y);
+          debugkey((x - 2) * colstep, 0, splita,  hfudge[x]- 0.75,
+                   vfudge[x] + (y -0.15) * rowstep, angles[x], separation, 0, 90,
+                   is_mirror, x,-centerrow);
         }
       }
     }
@@ -184,7 +203,7 @@ if (board == reform) {
 
 
 
-echo("Desktop Debug", "part", "X", "Y", "angle", "col", "row", "kicad switch location", "kicad LED", "kicad diode");
+echo("Reform Debug","col", "row",  "Switch", "X", "Y", "angle", "Diode", "DiodeX", "DiodeY", "DiodeAngle", "LED", "LedX","Led Y", "Led_A");
 
 
   angles = [ -1.5, -1.5, -0.75, 0, -0.75, -1.5, -1.5, -1.5 ]; // inner to outer(pinky)

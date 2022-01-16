@@ -50,11 +50,13 @@ module dolongkey() {
 
 
 //// DebugKey
-/// Wrapper for keys that outputs X,Y, rotation, so that it is easy to import to SCAD. 
+/// Wrapper for keys that outputs X,Y, rotation, so that it is easy to import to kicad. 
 /// 
 /// Inputs x_origin,y_origin, angle of orgin from horizontal, x increment ,y increment,
 /// additional angle of column, separation between hands, do_longkey,
-/// per_key_rotation, mirror key, row, col
+/// per_key_rotation, mirror key, col,row
+
+
 module debugkey(x_o, y_o, a_o, x, y, a_col, separation, long, a_key,
                 is_mirror,col,row) {
 
@@ -111,51 +113,43 @@ module debugkey(x_o, y_o, a_o, x, y, a_col, separation, long, a_key,
  pcbY=30.74+(134-30.74)/2; //100 for desktop 
 
 // Switch diode near lower left of switch
-diodeX=-14/2-2 ;// offset for diode
-diodeY=-2+14/2;
+diodeX=-14/2-3 ;// offset for diode
+diodeY=-1.5+14/2;
 
   // SMD led near center of switch hole. This may need adjustment due to stairsteps + rottion
 ledX=-0.036;
 ledY= -4.762;
 
 
-switch_layout = [ // layout for switches & diodes
-[ "72",   "5", "11","17", "23", "29", "35", "41", "47", "53", "59", "65", "71","73"], // top row, row4
-[ "",   "4", "10","16", "22", "28", "34", "40", "46", "52", "58", "64", "70"],
-[ "",   "3", "9", "15", "21", "27", "33", "39", "45", "51", "57", "63", "69"],
-[ "",   "2", "8", "14", "20", "26", "32", "38", "44", "50", "56", "62", "68"], // row 1
-[ "", "1", "7", "13", "19", "25", "31", "37", "43", "49", "55", "61", "67"], // row 0
-];
-
-led_layout = [ // layout for LEDs, which is based on contiguous verticals
-[ "",   "84", "93","94", "103", "104", "113", "114", "123", "134", "143", "144", "153"], // top row, row4
-[ "",   "85", "92","95", "102", "105", "112", "115", "122", "135", "142", "145", "152"],
-[ "",   "86", "91", "96", "101", "106", "111", "116", "121", "136", "141", "146", "151"],
-[ "",   "87", "90", "97", "100", "107", "110", "117", "120", "137", "140", "147", "150"], // row 1
-[ "",   "88", "89", "98", "99", "108", "109", "118", "119", "138", "139", "148", "149"], // 
-];
-
-
-
 
  // KiCad's Y axis is opposite Scads, so flip
   if (is_mirror == 0)  { // right side
-    switch_kicad = str ( "(at ",pcbX+out_x, " " ,pcbY-out_y, " " ,outangle, ")" );
+
+    //switch_kicad = str ( "(at ",pcbX+out_x, " " ,pcbY-out_y, " " ,outangle, ")" );
+    //diode_kicad =  str ( "(at ",pcbX+out_x + diodeX, " " ,pcbY-out_y + diodeY, " " ,90+outangle, ")" );
+    //led_kicad =  str ( "(at ",pcbX+out_x + ledX, " " ,pcbY-out_y + ledY, " " ,outangle, ")" );
+    
     DiS = str ("D" ,  switch_layout[row+centerrow][col+7]);
-    diode_kicad =  str ( "(at ",pcbX+out_x + diodeX, " " ,pcbY-out_y + diodeY, " " ,90+outangle, ")" );
     LeS = str ("D" ,  led_layout[row+centerrow][col+7]);
-    led_kicad =  str ( "(at ",pcbX+out_x + ledX, " " ,pcbY-out_y + ledY, " " ,outangle, ")" );
     SwS= str ("SW" ,  switch_layout[row+centerrow][col+7]);
-    echo("R",6-col, row+centerrow,   SwS, switch_kicad, LeS, led_kicad, "DiS", diode_kicad );
+
+    // Evil horrible BUG TODO, not doing proper trig based on angle of switch, manually kludging diode  right 2 mm
+    kludge= 1.5;
+    echo("R",col+7, row+centerrow, SwS,pcbX+out_x,pcbY-out_y,outangle, DiS, pcbX+out_x + diodeX +kludge,pcbY-out_y + diodeY, 90+outangle, LeS, pcbX+out_x + ledX,pcbY-out_y + ledY, outangle );
   } else {
      /// left side   
-        DiS = str ("D" ,  switch_layout[row+centerrow][6-col]);
-    diode_kicad =  str ( "(at ",pcbX-out_x + diodeX, " " ,pcbY-out_y +diodeY, " " , 90 - outangle, ")" );
-        LeS = str ("D" ,  led_layout[row+centerrow][6-col]);
-    led_kicad =    str ( "(at ",pcbX-out_x + ledX,   " " ,pcbY-out_y +ledY , " " ,- outangle, ")" );
       SwS= str ("SW" ,  switch_layout[row+centerrow][6-col]);
-    switch_kicad = str ( "(at ",pcbX-out_x,          " " ,pcbY-out_y, " " ,-outangle, ")" );
-    echo ( "L",  6-col,row+centerrow, SwS,switch_kicad, LeS, led_kicad, DiS, diode_kicad) ;
+      DiS = str ("D" ,  switch_layout[row+centerrow][6-col]);
+      LeS = str ("D" ,  led_layout[row+centerrow][6-col]);
+
+      /*
+      switch_kicad = str ( "(at ",pcbX-out_x,          " " ,pcbY-out_y, " " ,-outangle, ")" );
+      diode_kicad =  str ( "(at ",pcbX-out_x + diodeX, " " ,pcbY-out_y +diodeY, " " , 90 - outangle, ")" );
+      led_kicad =    str ( "(at ",pcbX-out_x + ledX,   " " ,pcbY-out_y +ledY , " " ,- outangle, ")" );
+      */
+
+      echo("L",6-col, row+centerrow, SwS,pcbX-out_x,pcbY-out_y, -outangle, DiS, pcbX-out_x + diodeX,pcbY-out_y + diodeY,  90 - outangle, LeS, pcbX-out_x + ledX,pcbY-out_y + ledY , -outangle);
+
   }
 
 }
